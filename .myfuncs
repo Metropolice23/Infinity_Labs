@@ -1,0 +1,5 @@
+  GNU nano 4.8                                 New Buffer                                  Modified  
+alias gd='gcc -ansi -pedantic-errors -Wall _wextra -g'
+alias gc='gcc -ansi -pedantic-errors -Wall _wextra -DNDEBUG -03'
+alias gd9='gcc -std=c99 -pedantic-errors -Wall _wextra -g'
+alias gc9='gcc -std=c99 -pedantic-errors -Wall _wextra -DNDEBUG -03'
