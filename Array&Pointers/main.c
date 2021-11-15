@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "array.h"
+#include "array_pointers.h"
 
 int main()
 {
