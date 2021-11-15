@@ -52,7 +52,7 @@ printf ("\n----------------\n");
 /*****************************************************************************************************/
 
 printf ("------------------------7Boom_TEST-------------------------\n");
-
+/*
 printf ("\n-------7*82---------\n");
 int start = 7;
 int end = 82;	
@@ -64,7 +64,7 @@ printf ("\n--------58*348--------\n");
 int start1 = 58;
 int end1 = 348;	
 Boom7(start1, end1);
-
+*/
 printf ("\n----------------\n");
 
 /*****************************************************************************************************/
@@ -73,21 +73,21 @@ printf ("\n----------------\n");
 /*****************************************************************************************************/
 /*****************************************************************************************************/
 
-//printf ("------------------------DelSpace_TEST-------------------------\n");
+printf ("------------------------DelSpace_TEST-------------------------\n");
 
-//char string[] = "  omri  shur  is  in the  house    ";	
-//DelSpace(string);
+char string[] = "  omri  shur  is  in the  house    ";	
+DelSpace(string);
 
-//printf ("should be -\nomri shur is in the house\n");
-//printf ("new string is - %s\n", string);
+printf ("should be -\nomri shur is in the house\n");
+printf ("new string is -%s\n", string);
 
-//printf ("\n----------------\n");
+printf ("\n----------------\n");
     
-//char string1[] = "  I'm   the	one		who knocks		";	
-//DelSpace(string1);
+char string1[] = "  I'm           the	one  who knocks		";	
+DelSpace(string1);
 
-//printf ("should be -\nI'm the one who knocks\n");
-//printf ("new string is - %s\n", string1);
+printf ("should be -\nI'm the	one who knocks\n");
+printf ("new string is -%s\n", string1);
     
 return 0;
 }
