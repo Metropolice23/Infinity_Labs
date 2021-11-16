@@ -62,35 +62,27 @@ void DelSpace(char* str)
 {
 	int i = 0;
 	int j = 0;
-	int ctr = 0;
 	while(str[i] != 0 && (str[i] == 32 || str[i] == 9))
 	{
 		i++;
 	}
 	while(str[i] != 0)
 	{
-		str[j] = str[i];
-		j++;
-		i++;
+		if ((str[i] == 32 || str[i] == 9) && (str[i+1] == 32 || str[i+1] == 9))
+		{
+			i++;
+		}
+		else
+		{
+			str[j] = str[i];
+			j++;
+			i++;
+		}		
 	}
 	while(str[j] != 0)
 	{
 		str[j] = 0;
 		j++;
-	}
-	i = 0;
-	while(str[i+1] != 0)
-	{
-		if ((str[i] == 32 || str[i] == 9) && (str[i-1] == 32 || str[i-1] == 9))
-		{
-			j = i;
-			while(str[j+1] != 0)
-			{
-				str[j] = str[j+1];
-				j++;
-			}
-		}
-		i++;
 	}
 	
 }
