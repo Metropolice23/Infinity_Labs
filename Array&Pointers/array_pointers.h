@@ -8,6 +8,6 @@ int Lucky(int num);
 //prints to stdout sizes of all data types
 int DTypeNames();
 //copies all the envirnoment variables into char** buffer in lower case, and prints them
-//int PrintEnv();
+int PrintEnv();
 
 #endif

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "array_pointers.h"
 
 int main()
@@ -76,6 +77,12 @@ int main()
 	printf ("------------------------DTypeNames Test-------------------------\n");
 	
 	DTypeNames();
+	
+	printf ("\n----------------\n");
+	
+	printf ("------------------------PrintEnv Test-------------------------\n");
+	
+	PrintEnv();
 	
 	printf ("\n----------------\n");
 	
