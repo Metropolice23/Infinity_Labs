@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "file.h"
 
 struct print_me
@@ -7,7 +8,6 @@ struct print_me
 	int num;
 	void (*ptr)(int num2);	
 };
-	
 
 int main()
 {
@@ -17,37 +17,46 @@ int main()
 
 	printf ("------------------------Ex1 Test-------------------------\n");
 
-	struct print_me arr[10];
+	struct print_me arr1[10];
 
 	for(int i=0; i<10; i++)
 	{
-		arr[i].num = i;
-		arr[i].ptr = Print;
-		arr[i].ptr(arr[i].num);
+		arr1[i].num = i;
+		arr1[i].ptr = Print;
+		arr1[i].ptr(arr1[i].num);
 	}	
 
 	printf ("\n---------------------------\n");
 
 	/************************************************/
-	/***********************Ex2**********************/
+	/**********************Ex2***********************/
 	/************************************************/
 
-	printf ("------------------------Ex2 Test-------------------------\n");
-	char c;
-	printf("Enter file name: ");
-	char fileName[100];
-	scanf("%s", fileName);
+	printf ("------------------------Ex2p1 Test-------------------------\n");
+	char input[100];
 	FILE * fn;
-	fn = fopen(fileName, "r"); 
+	int check = 0;
+	int cnt = 0;
+	char fileName[100];
 
-	while((c=fgetc(fn))!=EOF)
+
+	while (check < 2)
 	{
-		printf("%c",c);
-	}
-    fclose(fn);
+		printf("Enter file name: ");
+		scanf("%s", fileName);
+		check += Openf(&fn, fileName);
 
-	//const char *text = "Write this to the file";
-	//fprintf(f, "Some text: %s\n", text);
-	
+		while (cnt == 0)
+		{
+		printf("Enter string: ");
+		scanf(" %[^\n]",input);
+		if (Logger(fn, fileName, input) == 0)
+			{
+				Writef(&fn, str);
+			}
+		}
+	}
+	check = 0;
+
 	return 0;
 }
