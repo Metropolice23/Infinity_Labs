@@ -2,58 +2,63 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "file.h"
+#include "phase1.h"
+#include "phase2.h"
 
+#define MAX_L 100
 
 void Print(int num)
 {
 	printf("%d\n", num);
 }
 
-int Openf(FILE ** fn, char fileName[])
+int Openf(FILE * fp, char * filename)
 {
-		if( access( fileName, F_OK ) == 0 )
-		{
-    		*fn = fopen(fileName, "a+");
-			return 1;
-		}
-		else
-  		{
-    		printf("Error - file doesn't exist\n");
-			return 0;
-		}
+	if( access( filename, F_OK ) == 0 )
+	{
+    	fp = fopen(filename, "a+");
+		return 1;
+	}
+	else
+  	{
+    	printf("Error - file doesn't exist\n");
+		return 0;
+	}
 }
 
-int Closef(FILE ** fn, char fileName[])
+int Closef(FILE * fp, char * filename)
 {
-		if( access( fileName, F_OK ) == 0 )
-		{
-    		fclose(*fn);
-			return 1;
-		}
-		else
-  		{
-    		printf("Error - file doesn't exist\n");
-			return 0;
-		}
+	if( access( filename, F_OK ) == 0 )
+	{
+    	fclose(fp);
+		return 1;
+	}
+	else
+  	{
+    	printf("Error - file doesn't exist\n");
+		return 0;
+	}
 }
 
-int Writef(FILE ** fn, char str[])
+exitstatus_t Writef(FILE * fp, char* filename, char* string)
 {
-	printf("Enter string: ");
-	scanf(" %[^\n]",str);
-	fprintf(*fn, "%s\n", str);
-	return 1;
+	fp = fopen(filename, "a+");
+	//fprintf(fp, "%s\n", string);
+	fputs(string,fp);
+	fputc('\n',fp);
+	fclose (fp);
+	return WRITE;
 }
 
-int RemoveFile(FILE *fp, char* FileName)
+exitstatus_t RemoveFile(FILE *fp, char* filename, char* string)
 {
-	Closef(&fp, FileName)
-	remove(FileName);
-	return 1;
+	remove(filename);
+	return REMOVE;
 }
-int CountLines(FILE *fp, char* FileName)
+
+exitstatus_t CountLines(FILE *fp, char* filename, char* string)
 {
+	fp = fopen(filename, "a+");
 	char c;
 	int ctr =0 ;
 	for (c = getc(fp); c != EOF; c = getc(fp))
@@ -63,21 +68,42 @@ int CountLines(FILE *fp, char* FileName)
 			ctr++;
 		}
 	}
-	printf("The file %s has %d lines", FileName, ctr);
+	printf("The file %s has %d lines", filename, ctr);
+	fclose(fp);
+	return COUNTLINE;
+}
 
-}
-int ExitFile(FILE *fp, char* FileName)
+exitstatus_t ExitFile(FILE *fp, char* filename, char* string)
 {
-	return Closef(&fp, fileName);
+	exit (0);
+	return EXIT;
 }
-int SetStart(FILE *fp, char* FileName, char* string )
+
+exitstatus_t SetStart(FILE *fp, char* filename, char* string )
 {
-	
+	char temp[1000];
+	char c;
+	int j = 0;
+	fp = fopen(filename, "r");
+	for (c = fgetc(fp); c != EOF; c = fgetc(fp))
+	{
+		temp[j] = c;
+		j++;
+	}
+	temp[j] = '\0';
+	fclose(fp);
+	fp = fopen(filename, "w");
+	string++;
+	fputs (string, fp);
+	fputs ("\n", fp);
+	fputs (temp, fp);
+	fclose(fp);
+	return APPEND;
 }
 
 int CompareFirst(char* string, char* string2)
 {
-	if (string[0] == "<")
+	if (string[0] == string2[0])
 	{
 		return 1;
 	}
@@ -89,7 +115,7 @@ int CompareFirst(char* string, char* string2)
 
 int Compare(char* string, char* string2)
 {
-	if (strcmp(string, string2))
+	if (strcmp(string, string2) == 0)
 	{
 		return 1;
 	}
@@ -98,36 +124,58 @@ int Compare(char* string, char* string2)
 		return 0;
 	}
 }
-int Logger(FILE* f, char *file_name, char *str1 ... )
+
+int Compn(char* string, char* string2)
 {
-	struct two_func logger[4];
+	return 1;
+}
+
+int Logger(char *filename)
+{
+	FILE * fp;
+	char input[MAX_L];
+
+	struct Logaction arr[5];
 	
-	logger[0].string = "-remove";
-	logger[0].cmp = Compare;
-	logger[0].opt = RemoveFile;
+		arr[0].string = "-remove";
+		arr[0].cmp = Compare;
+		arr[0].opt = RemoveFile;
 
-	logger[1].string = "-count";
-	logger[1].cmp = Compare;
-	logger[1].opt = CountLines;
+		arr[1].string = "-count";
+		arr[1].cmp = Compare;
+		arr[1].opt = CountLines;
 
-	logger[2].string = "-exit";
-	logger[2].cmp = Compare;
-	logger[2].opt = ExitFile;
+		arr[2].string = "-exit";
+		arr[2].cmp = Compare;
+		arr[2].opt = ExitFile;
 
-	logger[3].string = "<";
-	logger[3].cmp = CompareFirst;
-	logger[3].opt = SetStart;
+		arr[3].string = "<";
+		arr[3].cmp = CompareFirst;
+		arr[3].opt = SetStart;
 
-	for(int i = 0; i < 3; i++)
+		arr[4].string = "write";
+		arr[4].cmp = Compn;
+		arr[4].opt = Writef;
+
+	while (1)
 	{
-		if(logger[i].cmp(logger[i].string, str1))
+		printf("\nEnter string: ");
+		scanf("%s", input);
+
+		for(int i = 0; i < 5; i++)
 		{
-			logger[i].opt(f, file_name, str1);
-			return 1;
+			if(arr[i].cmp(arr[i].string, input) == 1)
+			{
+				arr[i].opt(fp, filename, input);
+				break;
+			}
 		}
-		if(logger[3].cmp(logger[3].string, str1))
+		// if(arr[3].cmp(input, arr[3].string))
+		// {
+		// 	check = arr[3].opt(fp, filename, input);
+		// }
+	//	printf("BINGO");
 	}
-	return 0;
 }
 
 

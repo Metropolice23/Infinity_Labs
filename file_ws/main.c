@@ -1,13 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "file.h"
+#include "phase1.h"
+#include "phase2.h"
 
 struct print_me
 {
 	int num;
 	void (*ptr)(int num2);	
 };
+
+// struct two_func 
+// {  
+// 	char *string;
+// 	Comparison cmp;
+// 	Operation  opt;
+// };
 
 int main()
 {
@@ -33,30 +41,10 @@ int main()
 	/************************************************/
 
 	printf ("------------------------Ex2p1 Test-------------------------\n");
-	char input[100];
-	FILE * fn;
-	int check = 0;
-	int cnt = 0;
 	char fileName[100];
 
+	printf("Enter file name: ");
+	scanf("%s", fileName);
+	Logger(fileName);
 
-	while (check < 2)
-	{
-		printf("Enter file name: ");
-		scanf("%s", fileName);
-		check += Openf(&fn, fileName);
-
-		while (cnt == 0)
-		{
-		printf("Enter string: ");
-		scanf(" %[^\n]",input);
-		if (Logger(fn, fileName, input) == 0)
-			{
-				Writef(&fn, str);
-			}
-		}
-	}
-	check = 0;
-
-	return 0;
 }
