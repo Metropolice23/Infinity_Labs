@@ -12,33 +12,33 @@ void Print(int num)
 	printf("%d\n", num);
 }
 
-int Openf(FILE * fp, char * filename)
-{
-	if( access( filename, F_OK ) == 0 )
-	{
-    	fp = fopen(filename, "a+");
-		return 1;
-	}
-	else
-  	{
-    	printf("Error - file doesn't exist\n");
-		return 0;
-	}
-}
+//int Openf(FILE * fp, char * filename)
+// {
+// 	if( access( filename, F_OK ) == 0 )
+// 	{
+//     	fp = fopen(filename, "a+");
+// 		return 1;
+// 	}
+// 	else
+//   	{
+//     	printf("Error - file doesn't exist\n");
+// 		return 0;
+// 	}
+// }
 
-int Closef(FILE * fp, char * filename)
-{
-	if( access( filename, F_OK ) == 0 )
-	{
-    	fclose(fp);
-		return 1;
-	}
-	else
-  	{
-    	printf("Error - file doesn't exist\n");
-		return 0;
-	}
-}
+// //int Closef(FILE * fp, char * filename)
+// {
+// 	if( access( filename, F_OK ) == 0 )
+// 	{
+//     	fclose(fp);
+// 		return 1;
+// 	}
+// 	else
+//   	{
+//     	printf("Error - file doesn't exist\n");
+// 		return 0;
+// 	}
+// }
 
 exitstatus_t Writef(FILE * fp, char* filename, char* string)
 {
@@ -52,8 +52,17 @@ exitstatus_t Writef(FILE * fp, char* filename, char* string)
 
 exitstatus_t RemoveFile(FILE *fp, char* filename, char* string)
 {
-	remove(filename);
-	return REMOVE;
+	if( access( filename, F_OK ) == 0 )
+	{
+		remove(filename);
+		return REMOVE;
+	}
+	else
+  	{
+    	printf("Error - file doesn't exist\n");
+		return 0;
+	}
+
 }
 
 exitstatus_t CountLines(FILE *fp, char* filename, char* string)
@@ -177,5 +186,8 @@ int Logger(char *filename)
 	//	printf("BINGO");
 	}
 }
+
+
+
 
 
