@@ -1,7 +1,5 @@
 #ifndef __PHASE1_H__
 #define __PHASE1_H__
-#include "phase2.h"
-
 
 typedef enum  exitstatus_t { REMOVE , COUNTLINE, EXIT, APPEND, WRITE} exitstatus_t;
 
