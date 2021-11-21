@@ -56,6 +56,7 @@ exitstatus_t RemoveFile(FILE *fp, char* filename, char* string)
 	{
 		remove(filename);
 		return REMOVE;
+		exit (0);
 	}
 	else
   	{
