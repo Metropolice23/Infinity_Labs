@@ -18,7 +18,7 @@ stack_t *StackCreate(size_t capacity)
     stack_t* stack = (stack_t*)malloc(sizeof(stack_t));
     stack->capacity = capacity;
     stack->size = temp;
-    stack->array = malloc(stack->capacity * 8);
+    stack->array = malloc(stack->capacity * sizeof(void*));
     return stack;
 }
 
