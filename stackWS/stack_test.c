@@ -115,4 +115,9 @@ int main ()
     printf("\nresult is - \n");
     printf("%ld\n", StackCapacity(s3));
 
+    printf("\n-------------End Of Test---------------\n");
+
+    StackDestroy(s1);
+    StackDestroy(s2);
+    StackDestroy(s3);
 }
