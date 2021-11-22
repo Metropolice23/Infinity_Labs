@@ -29,7 +29,7 @@ void StackDestroy(stack_t *stack)
     {
         StackPop(stack);
     }
-    free (stack->array[0]);
+    free (stack->array);
     free(stack);
 }
 
