@@ -25,10 +25,11 @@ stack_t *StackCreate(size_t capacity)
 /* Deallocate stack array and stack*/
 void StackDestroy(stack_t *stack)
 {
+    while (stack->size > 0)
+    {
+        StackPop(stack);
+    }
     free (stack->array[0]);
-    stack->array[0] = NULL;
-    stack->capacity = 0;
-    stack->size = 0;
     free(stack);
 }
 
