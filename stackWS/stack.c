@@ -14,22 +14,22 @@ struct stack {
 */
 stack_t *StackCreate(size_t capacity)
 {
-    size_t temp = 0;
-    stack_t* stack = (stack_t*)malloc(sizeof(stack_t));
+    stack_t* stack = (stack_t*)malloc((sizeof(size_t)*2) + (capacity * sizeof(void*)));
     stack->capacity = capacity;
-    stack->size = temp;
-    stack->array = malloc(stack->capacity * sizeof(void*));
+    stack->size = 0;
+    //stack->array = malloc(stack->capacity * sizeof(void*));
+    stack->array = (void**) (stack + (sizeof(size_t)*2));
     return stack;
 }
 
 /* Deallocate stack array and stack*/
 void StackDestroy(stack_t *stack)
 {
-    while (stack->size > 0)
-    {
-        StackPop(stack);
-    }
-    free (stack->array);
+//    while (stack->size > 0)
+//    {
+//        StackPop(stack);
+//    }
+//    free (stack->array);
     free(stack);
 }
 
@@ -38,7 +38,7 @@ void *StackPop(stack_t *stack)
 {
     void *temp = stack->array[stack->size-1];
     stack->array[stack->size-1] = NULL;
-    stack->size--;
+    --stack->size;
     return temp;
 }
  
