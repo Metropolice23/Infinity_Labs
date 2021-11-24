@@ -38,7 +38,7 @@ void *VectorGet(const vector_t *vector, int index);
 void VectorPop(vector_t *vector);
 /*Deletes vector data structore */
 void VectorDestroy(vector_t *vector);
-/*Checks if vector is empty,True returns 0, False returns 1 */
+/*Checks if vector is empty,True returns 1, False returns 0 */
 int VectorIsEmpty(const vector_t *vector);
 /*Returns capacity size*/
 size_t VectorCapacity(const vector_t *vector);

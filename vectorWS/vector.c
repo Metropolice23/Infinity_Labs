@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
+#include <assert.h>
 #include "vector.h"
 
 typedef struct vector
@@ -12,16 +13,22 @@ typedef struct vector
     void *array;
 }vector_t;
 
-typedef struct vector vector_t;
-
 /* Creates vector varible ,recives size of element*/
 void *VectorCreate(size_t elem_size, size_t capacity)
 {
     vector_t* vector = (vector_t*)malloc((sizeof(size_t) * 3) + (capacity * elem_size));
+    if (vector == NULL)
+    {
+        return NULL;
+    }
     vector->capacity = capacity;
     vector->elem_size = elem_size;
     vector->size = 0;
     vector->array = (void*)malloc(capacity * elem_size);
+    if (vector->array == NULL)
+    {
+        return NULL;
+    }
     return vector;
 }
 
@@ -41,54 +48,65 @@ static void VectorResize(vector_t *vector, int capacity)
 /* Adds item at end of array*/
 void VectorAppend(vector_t *vector, const void *item)
 {
+    assert (vector->size < vector->capacity);
     memcpy(vector->array + (vector->size * vector->elem_size), item, vector->elem_size);
     ++vector->size;
     if(vector->size >= (vector->capacity) - 2)
     {
-      VectorResize(vector, ((vector->capacity) * 2));
+        VectorResize(vector, ((vector->capacity) * 2));
     }
 }
 
 /* Returns value in index */
 void *VectorGet(const vector_t *vector, int index)
 {
+    if (index >= vector->size)
+    {
+        return NULL;
+    }
     return (vector->array + (index * vector->elem_size));
 }
 
 /* Deletes item at the end of array */
 void VectorPop(vector_t *vector)
 {
-    --vector->size;
-    if(vector->size < (vector->capacity / 4))
+    if (VectorIsEmpty(vector) != 1)
     {
-        VectorResize(vector, (vector->capacity) / 2);
+        --vector->size;
+        if(vector->size < (vector->capacity / 4))
+        {
+            VectorResize(vector, (vector->capacity) / 2);
+        }
+    }
+    else
+    {
+        printf("\nError - Vector is empty!");
     }
 }
 
 /*Deletes vector data structore */
 void VectorDestroy(vector_t *vector)
 {
-    free(vector->array);
-    free(vector);
+    if (vector != NULL)
+    {
+        free(vector->array);
+        free(vector);
+    }
 }
 
-/*Checks if vector is empty,True returns 0, False returns 1 */
+/*Checks if vector is empty,True returns 1, False returns 0 */
 int VectorIsEmpty(const vector_t *vector)
 {
-    if (vector->size == 0)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    } 
+    return (vector->size == 0); 
 }
 
 /*Returns capacity size*/
 size_t VectorCapacity(const vector_t *vector)
 {
-    return vector->capacity;
+    if (vector != NULL)
+    {
+        return vector->capacity;
+    }
 }
 
 
