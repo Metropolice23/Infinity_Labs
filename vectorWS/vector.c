@@ -21,7 +21,7 @@ void *VectorCreate(size_t elem_size, size_t capacity)
     vector->capacity = capacity;
     vector->elem_size = elem_size;
     vector->size = 0;
-    vector->array = (void*) (vector + sizeof(size_t) * 3);
+    vector->array = (void*)malloc(capacity * elem_size);
     return vector;
 }
 
@@ -34,31 +34,24 @@ size_t VectorSize(const vector_t *vector)
 /* Resizes vector size (in .c file)*/
 static void VectorResize(vector_t *vector, int capacity)
 {
-    printf("alonalonaloan\n");
     vector->capacity = capacity;
-    vector = (vector_t*)realloc(vector, (capacity * vector->elem_size));
+    vector->array = (void*)realloc(vector->array, capacity * vector->elem_size);
 }
 
 /* Adds item at end of array*/
 void VectorAppend(vector_t *vector, const void *item)
 {
-    printf("size- %lu\n", vector->size);
-        printf("capa- %lu\n", vector->capacity);
-
-    memcpy(vector->array + vector->size * vector->elem_size, item, vector->elem_size);
+    memcpy(vector->array + (vector->size * vector->elem_size), item, vector->elem_size);
     ++vector->size;
-    if(vector->size >= (vector->capacity) - 1)
+    if(vector->size >= (vector->capacity) - 2)
     {
-      VectorResize(vector, (vector->capacity) * 2);
+      VectorResize(vector, ((vector->capacity) * 2));
     }
 }
 
 /* Returns value in index */
 void *VectorGet(const vector_t *vector, int index)
 {
-   // printf("$$$$$$$$$%d$$$$$$$$$$$$\n", *(int*)(vector->array + (index * vector->elem_size)));
-
-  // printf("############# %zu #############\n", vector->elem_size);
     return (vector->array + (index * vector->elem_size));
 }
 
@@ -75,6 +68,7 @@ void VectorPop(vector_t *vector)
 /*Deletes vector data structore */
 void VectorDestroy(vector_t *vector)
 {
+    free(vector->array);
     free(vector);
 }
 

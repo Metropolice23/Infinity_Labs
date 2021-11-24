@@ -150,9 +150,6 @@ int main ()
 
     for (int i = 0; i < 20; i++)
     {
-        printf("i = %d\n", i);
-            printf("v1 size is -\n%lu\n", VectorSize(v1));
-
         VectorAppend(v1, &i);
     }
 
@@ -164,7 +161,7 @@ int main ()
     printf("\n----------------------------\n");
 
     printf("v3 capacity shuold be - \n");
-    printf("50");
+    printf("25");
     printf("\nv3 capacity is - \n");
     printf("%lu\n", VectorCapacity(v3));
 
@@ -172,11 +169,11 @@ int main ()
 
     for (int i = 0; i < 30; i++)
     {
-        VectorAppend(v1, &cr1);
+        VectorAppend(v3, &cr1);
     }
 
     printf("v3 capacity shuold be - \n");
-    printf("100");
+    printf("50");
     printf("\nv3 capacity is - \n");
     printf("%lu\n", VectorCapacity(v3));
 
