@@ -65,8 +65,6 @@ int main ()
     VectorAppend(v1, &num3);
     VectorAppend(v1, &num4);
 
-    printf("\n^^^^^^^%d", *(int*)VectorGet(v1, 3));
-
     VectorAppend(v3, &cr1);
     VectorAppend(v3, &cr2);
     VectorAppend(v3, &cr3);
@@ -85,7 +83,7 @@ int main ()
     printf("\n-------------Get Test---------------\n");
 
     printf("v1 print should be -\n34\t102\t77\t51\n");
-    printf("v1 print is -\n%lu", VectorSize(v1));
+    printf("v1 print is -\n");
     for (int i = 0; i < 4; i++)
     {
         printf("%d\t", *(int*)VectorGet(v1, i));
