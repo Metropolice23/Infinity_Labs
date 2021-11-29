@@ -16,7 +16,7 @@ typedef struct vector
 /* Creates vector varible ,recives size of element*/
 void *VectorCreate(size_t elem_size, size_t capacity)
 {
-    vector_t* vector = (vector_t*)malloc((sizeof(size_t) * 3) + (capacity * elem_size));
+    vector_t *vector = (vector_t*)malloc(sizeof(vector_t));
     if (vector == NULL)
     {
         return NULL;
@@ -27,6 +27,7 @@ void *VectorCreate(size_t elem_size, size_t capacity)
     vector->array = (void*)malloc(capacity * elem_size);
     if (vector->array == NULL)
     {
+    	free(vector);
         return NULL;
     }
     return vector;
@@ -39,7 +40,7 @@ size_t VectorSize(const vector_t *vector)
 }
 
 /* Resizes vector size (in .c file)*/
-static void VectorResize(vector_t *vector, int capacity)
+static void VectorResize(vector_t *vector, size_t capacity)
 {
     vector->capacity = capacity;
     vector->array = (void*)realloc(vector->array, capacity * vector->elem_size);
@@ -60,10 +61,8 @@ void VectorAppend(vector_t *vector, const void *item)
 /* Returns value in index */
 void *VectorGet(const vector_t *vector, int index)
 {
-    if (index >= vector->size)
-    {
-        return NULL;
-    }
+    assert (NULL != vector);
+    assert (index < vector->size);
     return (vector->array + (index * vector->elem_size));
 }
 
@@ -97,17 +96,14 @@ void VectorDestroy(vector_t *vector)
 /*Checks if vector is empty,True returns 1, False returns 0 */
 int VectorIsEmpty(const vector_t *vector)
 {
+	assert(vector != NULL);
     return (vector->size == 0); 
 }
 
 /*Returns capacity size*/
 size_t VectorCapacity(const vector_t *vector)
 {
-    if (vector != NULL)
-    {
-        return vector->capacity;
-    }
+    assert(vector != NULL);
+    return vector->capacity;
 }
-
-
 
