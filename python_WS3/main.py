@@ -16,9 +16,6 @@ if __name__ == '__main__':
     print(python2.str_index('topolopompo'))
     print(python2.even_loop())
     global_check('yyy')
-    mypackage.foo()
     mypackage._bar()
-
-
 
 

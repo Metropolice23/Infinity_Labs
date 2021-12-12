@@ -5,4 +5,3 @@ def bar():
 def _bar():
     print('_bar')
 
-
