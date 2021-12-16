@@ -1,0 +1,76 @@
+!<arch>
+str1.c/         0           0     0     644     188       `
+#include "str.h"
+
+
+void ToLower(char *str)
+{
+    while(*str != '\0')
+    {
+        if(*str >=65 && *str<=90)
+        {
+            *str = *str + 32;
+        }
+        str++;
+    }
+
+}
+
+
+
+	
+str2.c/         0           0     0     644     224       `
+#include "str.h"
+
+
+/***********************Ruturn the legnth of a given array*****************************/  
+int strLen(const char* str)
+ {
+ 	int ctr = 0;
+ 	while (*str != '\0')
+ 	{
+ 		str++;
+ 		ctr++;
+ 	}
+ 	return ctr;
+ } str3.c/         0           0     0     644     271       `
+#include "str.h"
+
+
+/***********************Compare two given arrayes*****************************/  
+int strCmp (const char* str1, const char* str2)
+{
+	while (( *str1 == *str2 ) && ( *str1 != 0) && ( *str2 != 0))
+    {
+	    str1++;
+		str2++;
+	}
+	return (*str1 - *str2);
+}
+str4.c/         0           0     0     644     289       `
+#include "str.h"
+
+int strnCmp(const char *str1, const char *str2, size_t num)
+{
+int ctr = 0;
+while (( *str1 == *str2 ) && ( *str1 != 0) && ( *str2 != 0) && (ctr < num))
+    {
+	    str1++;
+		str2++;
+		ctr++;
+	//	printf("%s\n", str1);
+	//	printf("%s\n", str2);
+	}
+	return (*str1 - *str2); 
+}
+str.h/          0           0     0     644     229       `
+#ifndef  __STRING_H__
+#define __STRING_H__
+#include <stdio.h>
+
+int strCmp (const char* str1, const char* str2);
+int strLen (const char* str);
+int strnCmp(const char *s, const char *t, size_t num);
+void ToLower(char *str);
+
+#endif
