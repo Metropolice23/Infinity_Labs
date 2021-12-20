@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename= 'css/style.css') }}">
+</head>
+<body>
+
+<h1 class="weatherText">What's the fucking weather?!</h1>
+<form class="weatherText" id="weatherForm" action="/result" method="post">
+    Location: <input class="weatherText" id="weatherInput" type="text" name="loc">
+    <input class="weatherText" id="weatherSubmit" type="submit" value="Submit">
+</form>
+
+<p>Click the "Submit" button to see the weather.</p>
+
+</body>
+</html>
+
