@@ -1,19 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename= 'css/style.css') }}">
+    <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static',filename= 'css/result_style.css') }}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Title</title>
 </head>
-<body>
+<body style="background-color:#b7d0a9;">
 
-<h1 class="weatherText">What's the fucking weather?!</h1>
-<form class="weatherText" id="weatherForm" action="/result" method="post">
-    Location: <input class="weatherText" id="weatherInput" type="text" name="loc">
-    <input class="weatherText" id="weatherSubmit" type="submit" value="Submit">
-</form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Weather App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<p>Click the "Submit" button to see the weather.</p>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    <form class="form-inline my-2 my-lg-0" action="{{ url_for('render_result') }}" method="post">
+      <input class="form-control mr-sm-2" type="text" placeholder="Location" aria-label="Search" name="loc">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 
+<div>
+    {% block result %}
+    {% endblock %}
+</div>
+<div>
+    {% block notfound %}
+    {% endblock %}
+</div>
 </body>
 </html>
-

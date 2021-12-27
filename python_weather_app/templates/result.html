@@ -1,31 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Results Page</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename= 'css/result_style.css') }}">
-</head>
+{% extends "home.html" %}
+{% block result %}
 <style>
 table, th, td {
   border:1px solid black;
 }
 </style>
-<body>
 
 <h1>{{ complete['name'] }}, {{ complete['country'] }}</h1>
 
-<table style="width:100%">
-  <tr>
-    <th>Date</th>
-    <th>{{ complete[0]['weekday'] }}  {{ complete[0]['date'] }}</th>
-    <th>{{ complete[1]['weekday'] }}  {{ complete[1]['date'] }}</th>
-    <th>{{ complete[2]['weekday'] }}  {{ complete[2]['date'] }}</th>
-    <th>{{ complete[3]['weekday'] }}  {{ complete[3]['date'] }}</th>
-    <th>{{ complete[4]['weekday'] }}  {{ complete[4]['date'] }}</th>
-    <th>{{ complete[5]['weekday'] }}  {{ complete[5]['date'] }}</th>
-    <th>{{ complete[6]['weekday'] }}  {{ complete[6]['date'] }}</th>
-  </tr>
-  <tr>
-      <th>Day Temperature</th>
+<table class="table table-striped">
+   <thead class="thead-dark">
+    <tr style="text-align:center;">
+      <th>Description / Date</th>
+      <th>{{ complete[0]['weekday'] }}  ({{ complete[0]['date'] }})</th>
+      <th>{{ complete[1]['weekday'] }}  ({{ complete[1]['date'] }})</th>
+      <th>{{ complete[2]['weekday'] }}  ({{ complete[2]['date'] }})</th>
+      <th>{{ complete[3]['weekday'] }}  ({{ complete[3]['date'] }})</th>
+      <th>{{ complete[4]['weekday'] }}  ({{ complete[4]['date'] }})</th>
+      <th>{{ complete[5]['weekday'] }}  ({{ complete[5]['date'] }})</th>
+      <th>{{ complete[6]['weekday'] }}  ({{ complete[6]['date'] }})</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+           <th>Day Temperature</th>
     <td>{{ complete[0]['day'] }}°C</td>
     <td>{{ complete[1]['day'] }}°C</td>
     <td>{{ complete[2]['day'] }}°C</td>
@@ -53,7 +51,7 @@ table, th, td {
     <td>{{ complete[4]['weather'] }}</td>
     <td>{{ complete[5]['weather'] }}</td>
     <td>{{ complete[6]['weather'] }}</td>
-  </tr>    
+  </tr>
     <tr>
         <th>Humidity</th>
     <td>{{ complete[0]['humidity'] }}%</td>
@@ -63,9 +61,8 @@ table, th, td {
     <td>{{ complete[4]['humidity'] }}%</td>
     <td>{{ complete[5]['humidity'] }}%</td>
     <td>{{ complete[6]['humidity'] }}%</td>
-  </tr>    
+    </tr>
+  </tbody>
 </table>
 
-</body>
-</html>
-
+{% endblock %}
